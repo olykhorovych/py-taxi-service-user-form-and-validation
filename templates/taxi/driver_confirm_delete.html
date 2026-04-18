@@ -6,6 +6,6 @@
     {% csrf_token %}
 
     <input type="submit" value="Yes" class="btn btn-danger">
-      <a href="{{ next|default:"/" }}" class="btn btn-secondary">Cancel</a>
+      <a href="?next={{ request.path }}" class="btn btn-secondary">Cancel</a>
   </form>
 {% endblock %}
