@@ -7,6 +7,7 @@ from taxi.models import Car
 
 User = get_user_model()
 
+
 class DriverCreatForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
