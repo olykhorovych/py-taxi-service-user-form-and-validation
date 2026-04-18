@@ -1,25 +1,21 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth import get_user_model
 
-from taxi.models import Car, Driver
+from taxi.models import Car
 
+
+User = get_user_model()
 
 class DriverCreatForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
-        model = Driver
+        model = User
         fields = UserCreationForm.Meta.fields + ("license_number", )
-
-
-class DriverUpdateForm(UserChangeForm):
-    class Meta(UserChangeForm.Meta):
-        model = Driver
-        fields = ("username", "first_name", "last_name", "email")
-        exclude = ("password", )
 
 
 class CarForm(forms.ModelForm):
     drivers = forms.ModelMultipleChoiceField(
-        queryset=Driver.objects.all(),
+        queryset=User.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
@@ -34,5 +30,5 @@ class DriverLicenseUpdateForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "form-control"}))
 
     class Meta:
-        model = Driver
+        model = User
         fields = ("license_number", )
